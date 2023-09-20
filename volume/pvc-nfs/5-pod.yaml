@@ -1,0 +1,15 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: test-pod
+spec:
+  containers:
+  - name: test-pod
+    image: harbor.example.local/library/nginx:latest 
+    volumeMounts:
+      - name: nfs-pvc                         #使用声明的卷
+        mountPath: "/usr/share/nginx/html"
+  volumes:
+    - name: nfs-pvc                            #声明卷的名字
+      persistentVolumeClaim:
+        claimName: test-claim                  #选择上一步中创建的存储卷

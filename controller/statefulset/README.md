@@ -1,0 +1,2 @@
+此目录下为StatefulSet控制器控制pod有序状态的示例
+注意：在完成Volume存储之后

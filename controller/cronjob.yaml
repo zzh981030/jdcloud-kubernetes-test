@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cronjob-example
+spec:
+  schedule: "* * * * *"  #执行周期“分时日月周”
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cronjob
+            image: harbor.example.local/test/busyboxplus:latest
+            imagePullPolicy: IfNotPresent    #镜像拉取策略
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from k8s cluster
+          restartPolicy: OnFailure

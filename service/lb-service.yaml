@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-nginx
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+      app: nginx
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: deployment-example
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        imagePullPolicy: IfNotPresent    #镜像拉取策略

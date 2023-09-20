@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: PersistentVolume               #定义资源对象
+metadata:
+  name: pv1
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce              #只允许单点读写
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs        #存储类的名字为nfs类型
+  nfs:
+    path: /nfs/pv1
+    server: 192.168.0.11
+
+---
+apiVersion: v1
+kind: PersistentVolume               #定义资源对象
+metadata:
+  name: pv2
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadOnlyMany              #只允许多点只读
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs        #存储类的名字为nfs类型
+  nfs:
+    path: /nfs/pv2
+    server: 192.168.0.11
+

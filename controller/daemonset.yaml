@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemonset-example
+  labels:
+    k8s-app: zabbix-agent
+spec:
+  selector:
+    matchLabels:
+      name: zabbix-agent
+  template:
+    metadata:
+      labels:
+        name: zabbix-agent
+    spec:
+      containers:
+      - name: zabbix-agent
+        image: nginx:1.14.2
+        imagePullPolicy: IfNotPresent    #镜像拉取策略

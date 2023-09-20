@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm1-config
+data:
+  db_host: "192.168.0.250"
+  db_port: "3306"

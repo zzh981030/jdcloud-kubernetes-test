@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: LimitRange                   #为namespace创建资源限制
+metadata:
+  name: limitrange-memory
+spec:
+  limits:
+  - default:                      #默单pod限制
+      cpu: 0.5          
+      memory: 512Mi
+    defaultRequest:              #默认单pod要求   
+      cpu: 0.1
+      memory: 256Mi
+    max:                         #声明单pod限制
+      cpu: 1
+      memory: 1Gi
+    min:                          #声明单pod最小值
+      cpu: 0.1
+      memory: 100Mi
+    type: Container

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-client-provisioner                      #控制器的名称
+  labels:
+    app: nfs-client-provisioner                     #控制器的标签
+  # replace with namespace where provisioner is deployed
+  namespace: nfs-client-provisioner                 #控制器的namespace
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nfs-client-provisioner
+  template:
+    metadata:
+      labels:
+        app: nfs-client-provisioner
+    spec:
+      serviceAccountName: nfs-client-provisioner
+      containers:
+        - name: nfs-client-provisioner
+          image: harbor.jdts.local/library/nfs-subdir-external-provisioner:v4.0.2    #用到的镜像(需要提前下载)
+          
+          volumeMounts:
+            - name: nfs-client-root                               #挂载点名称
+              mountPath: /persistentvolumes                       #挂载点的路径
+          env:
+            - name: PROVISIONER_NAME
+              value: k8s-sigs.io/nfs-subdir-external-provisioner      #创建的nfs卷的值
+            - name: NFS_SERVER
+              value: 192.168.0.11                     #nfs服务器IP
+            - name: NFS_PATH                        
+              value: /nfs                             #nfs共享目录
+      volumes:
+        - name: nfs-client-root                 #活动卷名称
+          nfs:
+            server: 192.168.0.11                #nfs服务器IP
+            path: /nfs                          #nfs共享目录

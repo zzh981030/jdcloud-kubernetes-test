@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod-pvc
+spec:
+  containers:
+  - name: nginx
+    image: harbor.example.local/library/nginx:latest
+    imagePullPolicy: IfNotPresent 
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: vol1                 #定义的挂载点名称
+  volumes:                       #定义挂载点
+  - name: vol1                   #定义的挂载点名称
+    persistentVolumeClaim:
+      claimName: pvc1            #使用的pvc名称——必须在上一步中创建好

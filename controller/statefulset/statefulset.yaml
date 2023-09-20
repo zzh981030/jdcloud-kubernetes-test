@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet                   #控制器类型
+metadata:
+ name: web                              #控制器名称
+spec:
+ serviceName: "nginx-svc"             #上一步定义的headless类型的svc
+ replicas: 3
+ selector:
+  matchLabels:
+   app: nginx                      #选择器，匹配标签为app=nginx的pod
+ template:
+  metadata:
+   labels:
+    app: nginx
+  spec:
+   containers:
+   - name: nginx
+     image: nginx
+     volumeMounts:                         #添加挂载点
+       - name: www                                #下边定义的PVC名称
+         mountPath: /usr/share/nginx/html           #容器中的挂载路径
+ volumeClaimTemplates:                          #定义PVC
+  - metadata:
+     name: www                                    #定义PVC名称
+    spec:
+     storageClassName: nfs-client                 #创建的存储类StorageClass
+     accessModes:
+     - ReadWriteOnce                            #单点读写
+     resources:
+      requests:
+       storage: 1G

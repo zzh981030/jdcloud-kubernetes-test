@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game2048-deployment
+spec:
+  selector:
+    matchLabels:
+      app: game2048
+  replicas: 4 # 告知 Deployment 运行 2 个与该模板匹配的 Pod
+  template:
+    metadata:
+      labels:
+        app: game2048
+    spec:
+      containers:
+      - name: game2048
+      # image: nginx:1.14.2
+        image: harbor.example.local/test/game2048:latest
+        ports:
+        - containerPort: 80
+          hostPort: 80
+

@@ -1,0 +1,1 @@
+此目录下的文件是StatefulSets控制结合Volume创建有状态应用的示例——mysql主从

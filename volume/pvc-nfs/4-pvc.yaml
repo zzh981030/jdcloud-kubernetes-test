@@ -1,0 +1,35 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc1                        #创建的pvc的名称
+spec:
+  storageClassName: nfs-client             #存储类的名称
+  accessModes:
+    - ReadWriteMany                        #多点读写
+  resources:
+    requests:
+      storage: 1G
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc2                        #创建的pvc的名称
+spec:
+  storageClassName: nfs-client             #存储类的名称
+  accessModes:
+    - ReadWriteOnce                        #单点只读
+  resources:
+    requests:
+      storage: 10G
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc3                        #创建的pvc的名称
+spec:
+  storageClassName: nfs-client             #存储类的名称
+  accessModes:
+    - ReadOnlyMany                        #单点读写
+  resources:
+    requests:
+      storage: 500M
