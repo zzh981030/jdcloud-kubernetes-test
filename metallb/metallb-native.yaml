@@ -1736,7 +1736,8 @@ spec:
           value: memberlist
         - name: METALLB_DEPLOYMENT
           value: controller
-        image: harbor.example.local/metallb/controller:v0.13.10
+        image: harbor.jdts.com/metallb/controller:v0.13.10
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -1829,7 +1830,8 @@ spec:
           value: app=metallb,component=speaker
         - name: METALLB_ML_SECRET_KEY_PATH
           value: /etc/ml_secret_key
-        image: harbor.example.local/metallb/speaker:v0.13.10
+        image: harbor.jdts.com/metallb/speaker:v0.13.10
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
           httpGet:
